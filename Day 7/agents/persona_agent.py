@@ -12,10 +12,30 @@ llm = ChatGoogleGenerativeAI(
     temperature=0.7
 )
 
-def identify_persona(description: str):
-    prompt = f"You are a startup marketing expert. Based on the startup idea: '{description}', identify the ideal early adopter persona and suggest digital communities (e.g., Reddit, IndieHackers, Discord) they hang out in."
+def identify_persona(startup_description):
+    prompt = f"""
+    Given the following startup idea, identify the ideal early adopter persona and list relevant online communities where they might be active.
+    
+    Startup: {startup_description}
+
+    Format:
+    Persona: <persona description>
+    Communities: <comma-separated list of relevant communities>
+    """
+
     response = llm.invoke(prompt)
-    if "Communities:" in response.content:
-        persona, communities = response.content.split("Communities:")
-        return persona.strip(), [c.strip() for c in communities.split(",")]
-    return response.content.strip(), []
+
+    content = response.content.strip()
+
+    if "Communities:" not in content:
+        raise ValueError("Response does not contain 'Communities:' section.")
+
+    parts = content.split("Communities:")
+
+    if len(parts) != 2:
+        raise ValueError("Response format is invalid. Expected one 'Communities:' section.")
+
+    persona = parts[0].replace("Persona:", "").strip()
+    communities = [c.strip() for c in parts[1].split(",") if c.strip()]
+
+    return persona, communities
