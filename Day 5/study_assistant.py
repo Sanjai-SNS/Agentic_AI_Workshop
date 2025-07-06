@@ -18,7 +18,7 @@ from langchain.prompts import PromptTemplate
 from fpdf import FPDF
 
 # ✅ Set Gemini API key
-os.environ["GOOGLE_API_KEY"] = "AIzaSyD-IZMvu-PqcUJaMBqvZuIp5t_spSeNLCY"  # ← Replace this with your real key
+os.environ["GOOGLE_API_KEY"] = ""  # ← Replace this with your real key
 
 # ✅ Initialize Gemini LLM
 llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.3)
