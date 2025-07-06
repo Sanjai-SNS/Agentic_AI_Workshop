@@ -12,8 +12,8 @@ from markdown2 import markdown
 from weasyprint import HTML
 
 # ✅ STEP 3: Configure API Keys (Replace with your real keys)
-GEMINI_API_KEY = "AIzaSyD-IZMvu-PqcUJaMBqvZuIp5t_spSeNLCY"
-TAVILY_API_KEY = "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"
+GEMINI_API_KEY = ""
+TAVILY_API_KEY = ""
 
 genai.configure(api_key=GEMINI_API_KEY)
 tavily = TavilyClient(api_key=TAVILY_API_KEY)
